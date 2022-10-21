@@ -6,11 +6,13 @@ import pytest
 from selene import have
 from selene.support.shared import browser
 
-mobile = (500, 650)
-desktop = (1044, 785)
+mobile_width = 500
+mobile_height = 650
+desktop_width = 1044
+desktop_height = 785
 
 
-@pytest.fixture(params=[desktop])
+@pytest.fixture(params=[(desktop_width, desktop_height)])
 def browser_management(request):
     browser.config.window_width = request.param[0]
     browser.config.window_height = request.param[1]
@@ -25,7 +27,7 @@ def test_github_desktop(browser_management):
 
 @pytest.mark.parametrize(
     'browser_management',
-    [mobile],
+    [(mobile_width, mobile_height)],
     indirect=True,
     ids=['Changed to mobile browser window size'],
 )
